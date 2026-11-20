@@ -32,7 +32,7 @@ export default function Home() {
         intro
         mouseInteraction
         mouseStrength={0.14}
-        mouseRadius={0.07}
+        mouseRadius={0.25}
         flipOnClick
         lightMode
       />

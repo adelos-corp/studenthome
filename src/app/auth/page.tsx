@@ -3,8 +3,57 @@
 import { useState } from 'react';
 import HoloMosaic from '../../components/HoloMosaic';
 
+const educationLevels = [
+  'Unschooling',
+  'Primary education',
+  'Secondary education',
+  'Senior secondary',
+  'Intermediate',
+  'ITI / Vocational',
+  'Diploma',
+  'Undergraduate',
+  'Engineering',
+  'Postgraduate',
+  'Doctorate',
+  'Other',
+];
+
 export default function AuthPage() {
-  const [mode, setMode] = useState<'signup' | 'login'>('signup');
+  const [step, setStep] = useState<1 | 2>(1);
+  const [form, setForm] = useState({
+    firstName: '',
+    lastName: '',
+    surname: '',
+    dob: '',
+    education: '',
+    course: '',
+    college: '',
+    email: '',
+    password: '',
+  });
+  const [error, setError] = useState('');
+
+  const update = (field: keyof typeof form, value: string) =>
+    setForm((current) => ({ ...current, [field]: value }));
+
+  const next = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setError('');
+    if (!form.firstName.trim() || !form.lastName.trim() || !form.surname.trim() || !form.dob || !form.education || !form.course.trim() || !form.college.trim() || !form.email.trim()) {
+      setError('Please complete all fields before continuing.');
+      return;
+    }
+    setStep(2);
+  };
+
+  const createAccount = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (form.password.length < 5) {
+      setError('Your password must be at least 5 characters long.');
+      return;
+    }
+    setError('Signup UI is ready. Account creation and course verification will be connected when the backend is integrated.');
+  };
 
   return (
     <main className="auth-page">
@@ -31,7 +80,7 @@ export default function AuthPage() {
         speed={0.26}
         variation={7}
         fade={0.16}
-        opacity={0.65}
+        opacity={0.96}
         intro
         mouseInteraction
         mouseStrength={0.08}
@@ -49,27 +98,37 @@ export default function AuthPage() {
       </header>
 
       <section className="auth-content">
-        <div className="auth-card">
+        <div className="auth-card auth-signup-card">
           <div className="auth-brand-mark">S<span>·</span></div>
-          <p className="auth-kicker">STUDENTHOME</p>
-          <h1>{mode === 'signup' ? 'Your world starts here.' : 'Welcome back.'}</h1>
-          <p className="auth-subtitle">{mode === 'signup' ? 'Create your account and bring your academic life together.' : 'Sign in to pick up where you left off.'}</p>
+          <p className="auth-kicker">STUDENTHOME · CREATE ACCOUNT</p>
+          <div className="signup-progress"><span className={step === 1 ? 'current' : 'complete'} /><span className={step === 2 ? 'current' : ''} /></div>
+          <h1>{step === 1 ? 'Tell us about you.' : 'Create a password.'}</h1>
+          <p className="auth-subtitle">{step === 1 ? 'A few details to build your student profile.' : 'One last step to secure your account.'}</p>
 
-          <div className="auth-switch" role="tablist" aria-label="Authentication mode">
-            <button type="button" className={mode === 'signup' ? 'active' : ''} onClick={() => setMode('signup')}>Sign up</button>
-            <button type="button" className={mode === 'login' ? 'active' : ''} onClick={() => setMode('login')}>Log in</button>
-          </div>
-
-          <form className="auth-form" onSubmit={(e) => e.preventDefault()}>
-            {mode === 'signup' && <label>Full name<input type="text" autoComplete="name" placeholder="Your name" required /></label>}
-            <label>Student email<input type="email" autoComplete="email" placeholder="you@institution.edu" required /></label>
-            <label>Password<input type="password" autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} placeholder="At least 8 characters" minLength={8} required /></label>
-            {mode === 'signup' && <label>Institution <span className="optional">OPTIONAL</span><input type="text" placeholder="Your college or university" /></label>}
-            {mode === 'login' && <a className="forgot-link" href="#forgot-password">Forgot password?</a>}
-            <button className="auth-submit" type="submit">{mode === 'signup' ? 'Create account' : 'Sign in'} <span>↗</span></button>
-          </form>
-
-          <p className="auth-legal">{mode === 'signup' ? 'By creating an account, you agree to our Terms of Service and Privacy Policy.' : 'Secure access to your connected student experience.'}</p>
+          {step === 1 ? (
+            <form className="auth-form signup-form" onSubmit={next}>
+              <div className="auth-field-grid">
+                <label>First name<input value={form.firstName} onChange={(e) => update('firstName', e.target.value)} autoComplete="given-name" placeholder="First name" required /></label>
+                <label>Last name<input value={form.lastName} onChange={(e) => update('lastName', e.target.value)} autoComplete="family-name" placeholder="Last name" required /></label>
+              </div>
+              <label>Surname<input value={form.surname} onChange={(e) => update('surname', e.target.value)} placeholder="Surname" required /></label>
+              <label>Date of birth<input className="date-input" type="date" value={form.dob} onChange={(e) => update('dob', e.target.value)} required /><span className="field-hint">DD/MM/YYYY</span></label>
+              <label>Currently pursuing<select value={form.education} onChange={(e) => update('education', e.target.value)} required><option value="" disabled>Select your education level</option>{educationLevels.map((level) => <option key={level} value={level}>{level}</option>)}</select></label>
+              <label>Course<input value={form.course} onChange={(e) => update('course', e.target.value)} placeholder="Enter the full course name" required /><span className="field-hint">Use the official full name of your course.</span></label>
+              <label>College / Institution<input value={form.college} onChange={(e) => update('college', e.target.value)} placeholder="Enter your college or institution" required /></label>
+              <label>Email<input type="email" value={form.email} onChange={(e) => update('email', e.target.value)} autoComplete="email" placeholder="you@example.com" required /></label>
+              {error && <p className="auth-error">{error}</p>}
+              <button className="auth-submit" type="submit">Next <span>→</span></button>
+            </form>
+          ) : (
+            <form className="auth-form signup-form" onSubmit={createAccount}>
+              <label>Create a password<input type="password" value={form.password} onChange={(e) => update('password', e.target.value)} autoComplete="new-password" placeholder="Create password" minLength={5} required autoFocus /><span className="field-hint">At least 5 characters.</span></label>
+              {error && <p className={error.startsWith('Signup UI') ? 'auth-notice' : 'auth-error'}>{error}</p>}
+              <button className="auth-submit" type="submit">Create account <span>↗</span></button>
+              <button className="auth-secondary" type="button" onClick={() => { setStep(1); setError(''); }}>← Back</button>
+            </form>
+          )}
+          <p className="auth-legal">Your information is used to create your Studenthome profile.</p>
         </div>
         <p className="auth-footer">ONE CONNECTED STUDENT EXPERIENCE</p>
       </section>

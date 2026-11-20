@@ -30,7 +30,9 @@ export default function Home() {
         fade={0.16}
         opacity={0.96}
         intro
-        mouseInteraction={false}
+        mouseInteraction
+        mouseStrength={0.08}
+        mouseRadius={0.08}
         flipOnClick
         lightMode
       />

@@ -45,18 +45,13 @@ export default function Home() {
             <span className="adelos-sub">CORPORATION</span>
           </span>
         </a>
-        <span className="product-label">STUDENTHOME <span className="product-dot" /></span>
       </header>
       <section className="hero">
-        <p className="eyebrow"><span className="eyebrow-line" /> THE STUDENT ECOSYSTEM</p>
-        <h1><span>One Home.</span><span className="headline-blue">Every Student.</span></h1>
+          <h1><span>One Home.</span><span className="headline-blue">Every Student.</span></h1>
         <p className="hero-descr">Your academic world, connected.</p>
-        <a className="cta" href="#discover">Discover Studenthome <span aria-hidden="true">↗</span></a>
+        <a className="cta" href="#signup">Sign up <span aria-hidden="true">↗</span></a>
+        <a className="login-link" href="#login">Log in</a>
       </section>
-      <footer className="footer">
-        <span>ONE CONNECTED STUDENT EXPERIENCE</span>
-        <span>A PRODUCT OF ADELOS CORP.</span>
-      </footer>
     </main>
   );
 }

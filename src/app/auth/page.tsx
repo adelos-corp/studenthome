@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import HoloMosaic from '../../components/HoloMosaic';
 
 const educationLevels = [
@@ -36,7 +36,7 @@ export default function AuthPage() {
   const update = (field: keyof typeof form, value: string) =>
     setForm((current) => ({ ...current, [field]: value }));
 
-  const next = (event: React.FormEvent<HTMLFormElement>) => {
+  const next = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError('');
     if (!form.firstName.trim() || !form.lastName.trim() || !form.surname.trim() || !form.dob || !form.education || !form.course.trim() || !form.college.trim() || !form.email.trim()) {

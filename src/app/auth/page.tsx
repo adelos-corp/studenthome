@@ -90,11 +90,7 @@ export default function AuthPage() {
       />
       <div className="auth-wash" />
       <header className="auth-header">
-        <a className="adelos-brand" href="/" aria-label="Studenthome home">
-          <img className="adelos-logo" src="/adelos-black.svg" alt="ADELOS" />
-          <span className="adelos-wordmark"><span className="adelos-name">ADELOS</span><span className="adelos-sub">CORPORATION</span></span>
-        </a>
-        <a className="auth-back" href="/">← Back to home</a>
+        <a className="auth-studenthome-link" href="/" aria-label="Studenthome">studenthome</a>
       </header>
 
       <section className="auth-content">

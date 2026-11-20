@@ -2,6 +2,8 @@
 
 import { useState, type FormEvent } from 'react';
 import HoloMosaic from '../../components/HoloMosaic';
+import GoogleSignInButton from '../../components/GoogleSignInButton';
+import { createClient } from '@/lib/supabase/client';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -57,7 +59,7 @@ export default function LoginPage() {
             <label>Email<input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" placeholder="you@example.com" required /></label>
             <label>Password<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" placeholder="Password" required /></label>
             {error && <p className="auth-notice">{error}</p>}
-            <button className="auth-submit" type="submit">Log in <span>→</span></button>
+            <button className="auth-submit" type="submit">Log in <span>→</span></button>\n            <div className="auth-divider"><span>or</span></div>\n            <GoogleSignInButton />\n            <p className="auth-signup-prompt">New here? <a href="/auth?mode=signup">Create an account</a></p>
           </form>
         </div>
       </section>

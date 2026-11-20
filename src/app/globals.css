@@ -56,3 +56,18 @@ h1{margin:0;display:flex;flex-direction:column;font-size:clamp(58px,9.6vw,124px)
 .auth-legal{margin:18px 0 0;text-align:center;font-size:9px;line-height:1.6;color:#8498b4}
 .auth-footer{margin:24px 0 0;font-size:9px;letter-spacing:.18em;font-weight:700;color:#56739d}
 @media(max-width:640px){.auth-header{padding:22px 24px}.auth-back{font-size:11px}.auth-card{padding:26px 22px;border-radius:20px}.auth-content{padding:16px 18px 32px}}
+
+.auth-signup-card{width:min(100%,520px)}
+.signup-progress{display:flex;gap:6px;margin:0 0 20px}
+.signup-progress span{height:3px;flex:1;border-radius:99px;background:#e3ebf7}
+.signup-progress span.current,.signup-progress span.complete{background:#2f8cf4}
+.signup-form{gap:13px}
+.auth-field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.auth-form select{appearance:none;width:100%;border:1px solid #dbe5f2;border-radius:10px;padding:13px 14px;background:rgba(255,255,255,.8);outline:none;font:inherit;font-size:13px;color:#173b73;transition:border-color .2s,box-shadow .2s;background-image:linear-gradient(45deg,transparent 50%,#4772ac 50%),linear-gradient(135deg,#4772ac 50%,transparent 50%);background-position:calc(100% - 18px) calc(50% - 2px),calc(100% - 13px) calc(50% - 2px);background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+.auth-form select:focus{border-color:#2f8cf4;box-shadow:0 0 0 3px rgba(47,140,244,.1)}
+.date-input{color-scheme:light}
+.field-hint{font-size:9px;font-weight:500;color:#8ba0bb;margin-top:-1px}
+.auth-error{margin:0;color:#b42318;font-size:11px;line-height:1.5}
+.auth-notice{margin:0;color:#35659d;font-size:11px;line-height:1.6;background:#f1f6fd;border-radius:10px;padding:10px 12px}
+.auth-secondary{border:0;background:transparent;color:#4772ac;font:inherit;font-size:11px;font-weight:700;cursor:pointer;padding:8px}
+@media(max-width:520px){.auth-field-grid{grid-template-columns:1fr;gap:13px}.auth-signup-card{padding:24px 20px}.signup-progress{margin-bottom:17px}}

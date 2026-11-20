@@ -39,7 +39,7 @@ export default function Home() {
       <div className="porcelain-wash" aria-hidden="true" />
       <header className="topbar">
         <a className="adelos-brand" href="https://adeloscorp.com/" aria-label="ADELOS Corporation">
-          <img className="adelos-logo" src="/adelos-black.png" alt="ADELOS" />
+          <img className="adelos-logo" src="/adelos-black.svg" alt="ADELOS" />
           <span className="adelos-wordmark">
             <span className="adelos-name">ADELOS</span>
             <span className="adelos-sub">CORPORATION</span>

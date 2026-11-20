@@ -71,3 +71,25 @@ h1{margin:0;display:flex;flex-direction:column;font-size:clamp(58px,9.6vw,124px)
 .auth-notice{margin:0;color:#35659d;font-size:11px;line-height:1.6;background:#f1f6fd;border-radius:10px;padding:10px 12px}
 .auth-secondary{border:0;background:transparent;color:#4772ac;font:inherit;font-size:11px;font-weight:700;cursor:pointer;padding:8px}
 @media(max-width:520px){.auth-field-grid{grid-template-columns:1fr;gap:13px}.auth-signup-card{padding:24px 20px}.signup-progress{margin-bottom:17px}}
+
+/* Bare signup layout: form sits directly on the HoloMosaic */
+.auth-signup-card{width:min(100%,620px);padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none}
+.auth-brand-mark{display:none}
+.auth-kicker{margin-bottom:14px}
+.auth-card h1{font-size:clamp(34px,4vw,46px)}
+.auth-subtitle{margin:10px 0 26px}
+.signup-form{gap:17px}
+.auth-form label{font-size:11px;color:#143d82;gap:8px}
+.auth-form input,.auth-form select{border:0;border-bottom:1px solid rgba(20,74,158,.3);border-radius:0;padding:12px 2px;background:transparent;box-shadow:none;font-size:14px}
+.auth-form input:focus,.auth-form select:focus{border-bottom-color:#0049BA;box-shadow:0 2px 0 #0049BA;border-radius:0;background:transparent}
+.auth-form input::placeholder{color:rgba(30,73,140,.48)}
+.auth-form select{padding-left:2px;background-color:transparent}
+.auth-field-grid{gap:24px}
+.auth-content{padding:24px 20px 44px}
+.auth-wash{background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.34))}
+.signup-progress{margin-bottom:24px}
+.auth-submit{max-width:190px;border-radius:100px;padding:14px 24px}
+.auth-legal{text-align:left;max-width:620px}
+.auth-footer{margin-top:28px}
+.auth-header{padding-bottom:12px}
+@media(max-width:520px){.auth-signup-card{padding:0}.auth-field-grid{grid-template-columns:1fr;gap:17px}.auth-content{padding:18px 24px 36px}.auth-submit{max-width:none}}

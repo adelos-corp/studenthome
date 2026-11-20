@@ -49,8 +49,8 @@ export default function Home() {
       <section className="hero">
           <h1><span>One Home.</span><span className="headline-blue">Every Student.</span></h1>
         <p className="hero-descr">Your academic world, connected.</p>
-        <a className="cta" href="#signup">Sign up <span aria-hidden="true">↗</span></a>
-        <a className="login-link" href="#login">Log in</a>
+        <a className="cta" href="/auth?mode=signup">Sign up <span aria-hidden="true">↗</span></a>
+        <a className="login-link" href="/auth?mode=login">Log in</a>
       </section>
     </main>
   );

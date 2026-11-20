@@ -5,73 +5,28 @@ import HoloMosaic from '../../components/HoloMosaic';
 import GoogleSignInButton from '../../components/GoogleSignInButton';
 import { createClient } from '@/lib/supabase/client';
 
-const educationLevels = [
-  'Unschooling',
-  'Primary education',
-  'Secondary education',
-  'Senior secondary',
-  'Intermediate',
-  'ITI / Vocational',
-  'Diploma',
-  'Undergraduate',
-  'Engineering',
-  'Postgraduate',
-  'Doctorate',
-  'Other',
-];
-
 export default function AuthPage() {
-  const [step, setStep] = useState<1 | 2>(1);
-  const [form, setForm] = useState({
-    firstName: '',
-    lastName: '',
-    surname: '',
-    dob: '',
-    education: '',
-    course: '',
-    college: '',
-    email: '',
-    password: '',
-  });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
-  const update = (field: keyof typeof form, value: string) =>
-    setForm((current) => ({ ...current, [field]: value }));
-
-  const next = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setError('');
-    if (!form.firstName.trim() || !form.lastName.trim() || !form.surname.trim() || !form.dob || !form.education || !form.course.trim() || !form.college.trim() || !form.email.trim()) {
-      setError('Please complete all fields before continuing.');
-      return;
-    }
-    setStep(2);
-  };
 
   const createAccount = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (form.password.length < 5) {
+    setError('');
+    if (password.length < 5) {
       setError('Your password must be at least 5 characters long.');
       return;
     }
-    setError('');
+
     const supabase = createClient();
     const { data, error: authError } = await supabase.auth.signUp({
-      email: form.email,
-      password: form.password,
+      email,
+      password,
       options: {
         emailRedirectTo: `${window.location.origin}/auth/callback?next=/`,
-        data: {
-          first_name: form.firstName,
-          last_name: form.lastName,
-          surname: form.surname,
-          date_of_birth: form.dob,
-          education_level: form.education,
-          course: form.course,
-          institution: form.college,
-        },
       },
     });
+
     if (authError) {
       setError(authError.message);
       return;
@@ -124,33 +79,15 @@ export default function AuthPage() {
       <section className="auth-content">
         <div className="auth-card auth-signup-card">
           <div className="auth-brand-mark">S<span>·</span></div>
-          <div className="signup-progress"><span className={step === 1 ? 'current' : 'complete'} /><span className={step === 2 ? 'current' : ''} /></div>
-
-          {step === 1 ? (
-            <form className="auth-form signup-form" onSubmit={next}>
-              <div className="auth-field-grid">
-                <label>First name<input value={form.firstName} onChange={(e) => update('firstName', e.target.value)} autoComplete="given-name" placeholder="First name" required /></label>
-                <label>Last name<input value={form.lastName} onChange={(e) => update('lastName', e.target.value)} autoComplete="family-name" placeholder="Last name" required /></label>
-              </div>
-              <label>Surname<input value={form.surname} onChange={(e) => update('surname', e.target.value)} placeholder="Surname" required /></label>
-              <label>Date of birth<input className="date-input" type="date" value={form.dob} onChange={(e) => update('dob', e.target.value)} required /><span className="field-hint">DD/MM/YYYY</span></label>
-              <label>Currently pursuing<select value={form.education} onChange={(e) => update('education', e.target.value)} required><option value="" disabled>Select your education level</option>{educationLevels.map((level) => <option key={level} value={level}>{level}</option>)}</select></label>
-              <label>Course<input value={form.course} onChange={(e) => update('course', e.target.value)} placeholder="Enter the full course name" required /><span className="field-hint">Use the official full name of your course.</span></label>
-              <label>College / Institution<input value={form.college} onChange={(e) => update('college', e.target.value)} placeholder="Enter your college or institution" required /></label>
-              <label>Email<input type="email" value={form.email} onChange={(e) => update('email', e.target.value)} autoComplete="email" placeholder="you@example.com" required /></label>
-              {error && <p className="auth-error">{error}</p>}
-              <button className="auth-submit" type="submit">Next <span>→</span></button>
-              <div className="auth-divider"><span>or</span></div>
-              <GoogleSignInButton />
-            </form>
-          ) : (
-            <form className="auth-form signup-form" onSubmit={createAccount}>
-              <label>Create a password<input type="password" value={form.password} onChange={(e) => update('password', e.target.value)} autoComplete="new-password" placeholder="Create password" minLength={5} required autoFocus /><span className="field-hint">At least 5 characters.</span></label>
-              {error && <p className={error.startsWith('Account created.') ? 'auth-notice' : 'auth-error'}>{error}</p>}
-              <button className="auth-submit" type="submit">Create account <span>↗</span></button>
-              <button className="auth-secondary" type="button" onClick={() => { setStep(1); setError(''); }}>← Back</button>
-            </form>
-          )}
+          <form className="auth-form signup-form" onSubmit={createAccount}>
+            <label>Email<input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" placeholder="you@example.com" required /></label>
+            <label>Password<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="new-password" placeholder="Create password" minLength={5} required /><span className="field-hint">At least 5 characters.</span></label>
+            {error && <p className={error.startsWith('Account created.') ? 'auth-notice' : 'auth-error'}>{error}</p>}
+            <button className="auth-submit" type="submit">Create account <span>↗</span></button>
+            <div className="auth-divider"><span>or</span></div>
+            <GoogleSignInButton />
+            <p className="auth-signup-prompt">Already have an account? <a href="/login">Log in</a></p>
+          </form>
         </div>
       </section>
     </main>

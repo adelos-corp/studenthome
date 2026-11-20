@@ -101,3 +101,13 @@ h1{margin:0;display:flex;flex-direction:column;font-size:clamp(58px,9.6vw,124px)
 /* Minimal Studenthome wordmark on auth screens */
 .auth-studenthome-link{font-size:16px;font-weight:800;letter-spacing:-.055em;color:#092f75}
 .auth-studenthome-link:hover{opacity:.72}
+
+/* Supabase authentication controls */
+.auth-divider{display:flex;align-items:center;gap:14px;color:#7c91af;font-size:10px;font-weight:700;margin:2px 0}
+.auth-divider:before,.auth-divider:after{content:"";height:1px;flex:1;background:rgba(27,79,160,.18)}
+.google-auth-wrap{display:flex;flex-direction:column;gap:8px}
+.google-auth-button{width:100%;display:flex;align-items:center;justify-content:center;gap:12px;padding:13px 16px;border:1px solid rgba(20,74,158,.24);border-radius:100px;background:rgba(255,255,255,.74);color:#163d7d;font:inherit;font-size:12px;font-weight:700;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+.google-auth-button:hover{background:#fff;border-color:rgba(20,74,158,.42);transform:translateY(-1px)}
+.google-g{font-family:Arial,sans-serif;font-size:16px;font-weight:800;background:conic-gradient(from -45deg,#4285F4 0 25%,#34A853 25% 50%,#FBBC05 50% 75%,#EA4335 75% 100%);background-clip:text;color:transparent}
+.auth-signup-prompt{text-align:center;margin:3px 0 0;font-size:11px;color:#58769e}
+.auth-signup-prompt a{color:#0049BA;font-weight:800;text-decoration:underline;text-underline-offset:3px}

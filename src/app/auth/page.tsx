@@ -46,7 +46,7 @@ export default function AuthPage() {
     setStep(2);
   };
 
-  const createAccount = (event: React.FormEvent<HTMLFormElement>) => {
+  const createAccount = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (form.password.length < 5) {
       setError('Your password must be at least 5 characters long.');
@@ -100,10 +100,7 @@ export default function AuthPage() {
       <section className="auth-content">
         <div className="auth-card auth-signup-card">
           <div className="auth-brand-mark">S<span>·</span></div>
-          <p className="auth-kicker">STUDENTHOME · CREATE ACCOUNT</p>
           <div className="signup-progress"><span className={step === 1 ? 'current' : 'complete'} /><span className={step === 2 ? 'current' : ''} /></div>
-          <h1>{step === 1 ? 'Tell us about you.' : 'Create a password.'}</h1>
-          <p className="auth-subtitle">{step === 1 ? 'A few details to build your student profile.' : 'One last step to secure your account.'}</p>
 
           {step === 1 ? (
             <form className="auth-form signup-form" onSubmit={next}>
@@ -128,9 +125,7 @@ export default function AuthPage() {
               <button className="auth-secondary" type="button" onClick={() => { setStep(1); setError(''); }}>← Back</button>
             </form>
           )}
-          <p className="auth-legal">Your information is used to create your Studenthome profile.</p>
         </div>
-        <p className="auth-footer">ONE CONNECTED STUDENT EXPERIENCE</p>
       </section>
     </main>
   );

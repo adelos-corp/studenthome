@@ -772,7 +772,7 @@ const HoloMosaic = ({
 
     const onPointerDown = (event: PointerEvent) => {
       const s = settingsRef.current;
-      if (!s.mouseInteraction || !s.flipOnClick || event.button !== 0 || reduce || s.paused) return;
+      if (!s.flipOnClick || event.button !== 0 || reduce || s.paused) return;
       if (
         event.target instanceof Element &&
         event.target.closest('a, button, input, textarea, select, label, [role="button"]')

@@ -23,7 +23,7 @@ npm start
 ```
 
 ## Deployment
-The project is designed for Vercel. Import this repository into Vercel and use the Next.js framework preset.
+The project is designed for Vercel. Import this repository into the existing Vercel project `studenthome-adeloscorp` and use the Next.js framework preset.
 
 ## Current splash-page interaction
 - Porcelain white canvas with ADELOS blue HoloMosaic background

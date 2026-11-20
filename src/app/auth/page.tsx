@@ -48,7 +48,7 @@ export default function AuthPage() {
     setStep(2);
   };
 
-  const createAccount = (event: FormEvent<HTMLFormElement>) => {
+  const createAccount = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (form.password.length < 5) {
       setError('Your password must be at least 5 characters long.');
@@ -140,6 +140,8 @@ export default function AuthPage() {
               <label>Email<input type="email" value={form.email} onChange={(e) => update('email', e.target.value)} autoComplete="email" placeholder="you@example.com" required /></label>
               {error && <p className="auth-error">{error}</p>}
               <button className="auth-submit" type="submit">Next <span>→</span></button>
+              <div className="auth-divider"><span>or</span></div>
+              <GoogleSignInButton />
             </form>
           ) : (
             <form className="auth-form signup-form" onSubmit={createAccount}>

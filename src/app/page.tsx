@@ -1,11 +1,24 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import HoloMosaic from '../components/HoloMosaic';
 
 export default function Home() {
+  const [mosaicReady, setMosaicReady] = useState(false);
+  const [playIntro, setPlayIntro] = useState(false);
+
+  useEffect(() => {
+    const played = sessionStorage.getItem('studenthome-holomosaic-intro');
+    if (!played) {
+      setPlayIntro(true);
+      sessionStorage.setItem('studenthome-holomosaic-intro', '1');
+    }
+    setMosaicReady(true);
+  }, []);
+
   return (
     <main className="landing">
-      <HoloMosaic
+      {mosaicReady && <HoloMosaic
         className="mosaic"
         color="#FFFFFF"
         metalColor="#0049BA"
@@ -29,13 +42,13 @@ export default function Home() {
         variation={7}
         fade={0.16}
         opacity={0.96}
-        intro
+        intro={playIntro}
         mouseInteraction
         mouseStrength={0.08}
         mouseRadius={0.08}
         flipOnClick
         lightMode
-      />
+      />}
       <div className="porcelain-wash" aria-hidden="true" />
       <header className="topbar">
         <a className="adelos-brand" href="https://adeloscorp.com/" aria-label="ADELOS Corporation">

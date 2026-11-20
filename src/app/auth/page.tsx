@@ -2,6 +2,8 @@
 
 import { useState, type FormEvent } from 'react';
 import HoloMosaic from '../../components/HoloMosaic';
+import GoogleSignInButton from '../../components/GoogleSignInButton';
+import { createClient } from '@/lib/supabase/client';
 
 const educationLevels = [
   'Unschooling',
@@ -52,7 +54,33 @@ export default function AuthPage() {
       setError('Your password must be at least 5 characters long.');
       return;
     }
-    setError('Signup UI is ready. Account creation and course verification will be connected when the backend is integrated.');
+    setError('');
+    const supabase = createClient();
+    const { data, error: authError } = await supabase.auth.signUp({
+      email: form.email,
+      password: form.password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=/`,
+        data: {
+          first_name: form.firstName,
+          last_name: form.lastName,
+          surname: form.surname,
+          date_of_birth: form.dob,
+          education_level: form.education,
+          course: form.course,
+          institution: form.college,
+        },
+      },
+    });
+    if (authError) {
+      setError(authError.message);
+      return;
+    }
+    if (!data.session) {
+      setError('Account created. Check your email to confirm your account, then log in.');
+      return;
+    }
+    window.location.href = '/';
   };
 
   return (
@@ -116,7 +144,7 @@ export default function AuthPage() {
           ) : (
             <form className="auth-form signup-form" onSubmit={createAccount}>
               <label>Create a password<input type="password" value={form.password} onChange={(e) => update('password', e.target.value)} autoComplete="new-password" placeholder="Create password" minLength={5} required autoFocus /><span className="field-hint">At least 5 characters.</span></label>
-              {error && <p className={error.startsWith('Signup UI') ? 'auth-notice' : 'auth-error'}>{error}</p>}
+              {error && <p className={error.startsWith('Account created.') ? 'auth-notice' : 'auth-error'}>{error}</p>}
               <button className="auth-submit" type="submit">Create account <span>↗</span></button>
               <button className="auth-secondary" type="button" onClick={() => { setStep(1); setError(''); }}>← Back</button>
             </form>

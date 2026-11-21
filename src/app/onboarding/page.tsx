@@ -62,18 +62,37 @@ export default function OnboardingPage() {
 
     setBusy(true);
     const supabase = createClient();
-    const { error: saveError } = await supabase.auth.updateUser({
-      data: {
-        studenthome_profile: {
-          ...profile,
-          age: profile.dob ? (() => { const birth = new Date(profile.dob); const today = new Date(); return today.getFullYear() - birth.getFullYear() - (today < new Date(today.getFullYear(), birth.getMonth(), birth.getDate()) ? 1 : 0); })() : null,
-          onboarding_completed: true,
-          completed_at: new Date().toISOString(),
-        },
-      },
-    });
+    const { data: authData, error: userError } = await supabase.auth.getUser();
+    if (userError || !authData.user) {
+      setBusy(false);
+      setError('Your session expired. Please log in again.');
+      return;
+    }
+
+    const fullName = [profile.firstName, profile.lastName, profile.surnames].filter(Boolean).join(' ');
+    const { error: saveError } = await supabase.from('profiles').upsert({
+      id: authData.user.id,
+      email: authData.user.email,
+      first_name: profile.firstName.trim(),
+      last_name: profile.lastName.trim(),
+      surnames: profile.surnames.trim() || null,
+      full_name: fullName,
+      date_of_birth: profile.dob,
+      education_level: profile.education,
+      college: profile.institution.trim(),
+      course: profile.course.trim(),
+      stream: profile.stream.trim(),
+      academic_year: profile.year || null,
+      year_of_study: profile.year || profile.grade || null,
+      semester: profile.semester || null,
+      grade: profile.grade || null,
+      onboarding_completed: true,
+      onboarding_completed_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    }, { onConflict: 'id' });
+
     setBusy(false);
-    if (saveError) { setError(saveError.message); return; }
+    if (saveError) { setError('We could not save your profile. Please try again.'); return; }
     setFinished(true);
   };
 

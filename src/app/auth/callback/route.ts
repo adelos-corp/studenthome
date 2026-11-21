@@ -20,6 +20,6 @@ export async function GET(request: Request) {
     .eq('id', userData.user.id)
     .maybeSingle();
 
-  const destination = profile?.onboarding_completed ? '/' : '/onboarding';
+  const destination = profile?.onboarding_completed ? '/dashboard' : '/onboarding';
   return NextResponse.redirect(new URL(destination, url.origin));
 }

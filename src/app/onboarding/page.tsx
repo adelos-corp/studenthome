@@ -113,7 +113,7 @@ export default function OnboardingPage() {
     setFinished(true);
   };
 
-  const enter = () => { window.location.href = '/'; };
+  const enter = () => { window.location.href = '/dashboard'; };
 
   return (
     <main className="onboarding-page">

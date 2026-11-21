@@ -66,7 +66,7 @@ export default function OnboardingPage() {
       data: {
         studenthome_profile: {
           ...profile,
-          age: profile.dob ? Math.max(0, new Date().getFullYear() - new Date(profile.dob).getFullYear() - (new Date() < new Date(new Date(profile.dob).setFullYear(new Date().getFullYear())) ? 1 : 0)) : null,
+          age: profile.dob ? (() => { const birth = new Date(profile.dob); const today = new Date(); return today.getFullYear() - birth.getFullYear() - (today < new Date(today.getFullYear(), birth.getMonth(), birth.getDate()) ? 1 : 0); })() : null,
           onboarding_completed: true,
           completed_at: new Date().toISOString(),
         },
@@ -110,7 +110,7 @@ export default function OnboardingPage() {
 
             {step === 2 && <div className="onboarding-options">{educationOptions.map((option) => <button type="button" className={'onboarding-option' + (profile.education === option ? ' selected' : '')} onClick={() => update('education', option)} key={option}>{option}<span>{profile.education === option ? '✓' : '↗'}</span></button>)}</div>}
 
-            {step === 3 && <div className="onboarding-fields"><label>{profile.education === 'School' ? 'School name' : 'College / institution'}<input autoFocus value={profile.institution} onChange={(e) => update('institution', e.target.value)} placeholder="Institution name" /></label><label>City <span className="onboarding-optional">OPTIONAL</span><input value={profile.grade} onChange={(e) => update('grade', e.target.value)} placeholder="City / location" /></label></div>}
+            {step === 3 && <div className="onboarding-fields"><label>{profile.education === 'School' ? 'School name' : 'College / institution'}<input autoFocus value={profile.institution} onChange={(e) => update('institution', e.target.value)} placeholder="Institution name" /></label></div>}
 
             {step === 4 && <div className="onboarding-fields"><label>Course / degree<input autoFocus value={profile.course} onChange={(e) => update('course', e.target.value)} placeholder="e.g. B.Tech, Diploma, CBSE" /></label><label>Stream / specialization<input value={profile.stream} onChange={(e) => update('stream', e.target.value)} placeholder="e.g. Computer Engineering" /></label></div>}
 

@@ -12,7 +12,7 @@ export default function GoogleSignInButton() {
     const { error: authError } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback?next=/`,
+        redirectTo: `${window.location.origin}/auth/callback?next=/onboarding`, 
         queryParams: { prompt: 'select_account' },
       },
     });

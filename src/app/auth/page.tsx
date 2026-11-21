@@ -81,8 +81,8 @@ export default function AuthPage() {
           <div className="auth-brand-mark">S<span>·</span></div>
           <form className="auth-form signup-form" onSubmit={createAccount}>
             <label>Email<input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" placeholder="you@example.com" required /></label>
-            <label>Password<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="new-password" placeholder="Create password" minLength={5} required /><span className="field-hint">At least 5 characters.</span></label>
-            {error && <p className={error.startsWith('Account created.') ? 'auth-notice' : 'auth-error'}>{error}</p>}
+            <label>Password<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="new-password" placeholder="Create password" minLength={8} required /><span className="field-hint">At least 8 characters.</span></label>
+            {error && <p className="auth-error">{error}{error.includes('already exists') && <> <a href="/login">Log in</a></>}</p>}
             <button className="auth-submit" type="submit">Create account <span>↗</span></button>
             <div className="auth-divider"><span>or</span></div>
             <GoogleSignInButton />

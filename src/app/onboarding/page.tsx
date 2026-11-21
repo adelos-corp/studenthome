@@ -70,9 +70,7 @@ export default function OnboardingPage() {
     }
 
     const fullName = [profile.firstName, profile.lastName, profile.surnames].filter(Boolean).join(' ');
-    const { error: saveError } = await supabase.from('profiles').upsert({
-      id: authData.user.id,
-      email: authData.user.email,
+    const profileData = {
       first_name: profile.firstName.trim(),
       last_name: profile.lastName.trim(),
       surnames: profile.surnames.trim() || null,
@@ -89,7 +87,26 @@ export default function OnboardingPage() {
       onboarding_completed: true,
       onboarding_completed_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
-    }, { onConflict: 'id' });
+    };
+
+    // Update the trigger-created profile row without attempting to update protected
+    // identity columns (id/email). If the row is missing, create it as a fallback.
+    const { data: savedProfile, error: updateError } = await supabase
+      .from('profiles')
+      .update(profileData)
+      .eq('id', authData.user.id)
+      .select('id')
+      .maybeSingle();
+
+    let saveError = updateError;
+    if (!updateError && !savedProfile) {
+      const { error: insertError } = await supabase.from('profiles').insert({
+        id: authData.user.id,
+        email: authData.user.email,
+        ...profileData,
+      });
+      saveError = insertError;
+    }
 
     setBusy(false);
     if (saveError) { setError('We could not save your profile. Please try again.'); return; }

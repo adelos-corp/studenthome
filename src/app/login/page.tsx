@@ -17,7 +17,7 @@ export default function LoginPage() {
     const { data, error: authError } = await supabase.auth.signInWithPassword({ email, password });
     if (authError) { setError('Email or password is incorrect.'); return; }
     const { data: profile } = await supabase.from('profiles').select('onboarding_completed').eq('id', data.user.id).maybeSingle();
-    window.location.href = profile?.onboarding_completed ? '/' : '/onboarding';
+    window.location.href = profile?.onboarding_completed ? '/dashboard' : '/onboarding';
   };
 
   return (

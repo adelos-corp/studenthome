@@ -111,3 +111,46 @@ h1{margin:0;display:flex;flex-direction:column;font-size:clamp(58px,9.6vw,124px)
 .google-g{font-family:Arial,sans-serif;font-size:16px;font-weight:800;background:conic-gradient(from -45deg,#4285F4 0 25%,#34A853 25% 50%,#FBBC05 50% 75%,#EA4335 75% 100%);background-clip:text;color:transparent}
 .auth-signup-prompt{text-align:center;margin:3px 0 0;font-size:11px;color:#58769e}
 .auth-signup-prompt a{color:#0049BA;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+
+/* Studenthome guided onboarding */
+.onboarding-page{position:relative;min-height:100svh;overflow:hidden;isolation:isolate;background:#fff;display:flex;flex-direction:column}
+.onboarding-mosaic{position:absolute!important;inset:0;z-index:-2;width:100%;height:100%;opacity:.58}
+.onboarding-wash{position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.36))}
+.onboarding-header{position:relative;z-index:2;padding:28px clamp(24px,5.3vw,88px);display:flex;align-items:center;justify-content:space-between}
+.onboarding-count{font-size:11px;font-weight:700;letter-spacing:.14em;color:#5375a5}
+.onboarding-count span{color:#9bb0cc;margin:0 5px}
+.onboarding-main{flex:1;display:flex;align-items:center;justify-content:center;padding:24px 22px 54px}
+.onboarding-panel{width:min(100%,600px);animation:onboarding-in .38s cubic-bezier(.2,.7,.2,1) both}
+@keyframes onboarding-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.onboarding-progress{height:3px;background:rgba(29,82,166,.12);border-radius:100px;overflow:hidden;margin-bottom:42px}
+.onboarding-progress span{display:block;height:100%;background:#2f8cf4;border-radius:100px;transition:width .35s ease}
+.onboarding-eyebrow{font-size:10px;font-weight:800;letter-spacing:.22em;color:#4772ac;margin:0 0 14px}
+.onboarding-panel h1{font-size:clamp(36px,5vw,54px);letter-spacing:-.065em;line-height:1.04;color:#092f75;margin:0;display:block}
+.onboarding-panel h1 em{font-style:normal;color:#0049BA}
+.onboarding-description{margin:14px 0 34px;font-size:14px;line-height:1.65;color:#5c769d;max-width:480px}
+.onboarding-fields{display:flex;flex-direction:column;gap:22px}
+.onboarding-fields label{display:flex;flex-direction:column;gap:9px;font-size:11px;font-weight:700;color:#143d82}
+.onboarding-fields input{width:100%;border:0;border-bottom:1px solid rgba(20,74,158,.3);border-radius:0;padding:12px 2px;background:transparent;outline:none;font:inherit;font-size:15px;color:#173b73;transition:border-color .2s,box-shadow .2s}
+.onboarding-fields input::placeholder{color:rgba(30,73,140,.4)}
+.onboarding-fields input:focus{border-bottom-color:#0049BA;box-shadow:0 2px 0 #0049BA}
+.onboarding-date{color-scheme:light}
+.onboarding-optional{font-size:8px;letter-spacing:.12em;color:#8da1bd;margin-left:4px}
+.onboarding-options{display:flex;flex-direction:column;gap:9px}
+.onboarding-option{display:flex;align-items:center;justify-content:space-between;padding:15px 17px;border:1px solid rgba(20,74,158,.18);background:rgba(255,255,255,.55);border-radius:12px;color:#244a82;font:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:border .2s,background .2s,transform .2s}
+.onboarding-option:hover{border-color:#7ba9e5;transform:translateY(-1px)}
+.onboarding-option.selected{border-color:#0049BA;background:rgba(234,243,255,.85);color:#0049BA}
+.onboarding-option span{color:#4b83cf}
+.onboarding-error{margin:18px 0 0;color:#b42318;font-size:12px}
+.onboarding-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:34px}
+.onboarding-back{border:0;background:transparent;color:#5275a2;font:inherit;font-size:12px;font-weight:700;padding:12px 0;cursor:pointer}
+.onboarding-next{border:0;border-radius:100px;padding:14px 24px;background:#0049BA;color:#fff;display:inline-flex;align-items:center;justify-content:center;gap:13px;font:inherit;font-size:12px;font-weight:800;cursor:pointer;box-shadow:0 8px 24px rgba(0,73,186,.15);transition:transform .2s,box-shadow .2s}
+.onboarding-next:hover{transform:translateY(-1px);box-shadow:0 12px 30px rgba(0,73,186,.22)}
+.onboarding-next:disabled{opacity:.65;cursor:wait;transform:none}
+.onboarding-footnote{margin:22px 0 0;font-size:10px;color:#8498b4}
+.welcome-panel{text-align:left}
+.welcome-mark{width:38px;height:38px;border-radius:12px;background:#0049BA;color:#fff;display:grid;place-items:center;font-weight:800;font-size:18px;margin-bottom:30px}
+.welcome-mark span{color:#6ee7c6}
+.welcome-panel h1{font-size:clamp(46px,7vw,76px);line-height:.99}
+.welcome-panel .onboarding-description{font-size:16px;margin:24px 0 34px}
+.onboarding-enter{padding:15px 26px}
+@media(max-width:600px){.onboarding-header{padding:22px 24px}.onboarding-main{padding:28px 24px 42px}.onboarding-progress{margin-bottom:30px}.onboarding-panel h1{font-size:clamp(34px,10vw,46px)}.onboarding-description{margin:12px 0 28px}.onboarding-fields{gap:19px}.onboarding-actions{margin-top:28px}.onboarding-next{padding:14px 20px}}

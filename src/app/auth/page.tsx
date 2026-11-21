@@ -23,7 +23,7 @@ export default function AuthPage() {
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=/`,
+        emailRedirectTo: `${window.location.origin}/auth/callback?next=/onboarding`, 
       },
     });
 
@@ -35,7 +35,7 @@ export default function AuthPage() {
       setError('Account created. Check your email to confirm your account, then log in.');
       return;
     }
-    window.location.href = '/';
+    window.location.href = '/onboarding';
   };
 
   return (
